@@ -33,7 +33,7 @@ class Ui_Form(object):
 		self.Elemlist = []
 	def setupUi(self, Form):
 		Form.setObjectName(_fromUtf8("Form"))
-		Form.resize(1000, 577)
+		Form.resize(1200, 577)
 		self.area = QtGui.QScrollArea(Form)
 		self.area.setGeometry(QtCore.QRect(10,55,1200,800))
 		self.lineEdit = QtGui.QLineEdit(Form)
@@ -196,7 +196,7 @@ class Ui_Form(object):
 		doc.setRenderHint(popplerqt4.Poppler.Document.Antialiasing)
 		doc.setRenderHint(popplerqt4.Poppler.Document.TextAntialiasing)
 		page = doc.page(0)
-		image = page.renderToImage(200,200)
+		image = page.renderToImage(150,150)
 		self.label.setPixmap(QtGui.QPixmap.fromImage(image))
 		self.area.setWidget(self.label)
 	def showNotification(self,info):

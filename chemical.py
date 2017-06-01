@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import os
+
 from convertLatex import convert2Latex
 class ankan:
     def __init__(self):
@@ -18,5 +20,17 @@ class ankan:
             return content
         
         else:
-            #cac chat con lai co tinh chat chung
-            return convert2Latex(cacbonlist,"ankan")
+            tempList = []
+            for x in cacbonlist:
+                tempList.append(x[:])
+            for x in tempList:
+                if x[6]:
+                    x[1] = "Clor"
+                    x[7]-=1
+            content = r"a) Phản ứng thế với $Cl_{2}, Br_{2}$\\"+"\n"
+            temp = convert2Latex(tempList,"ankan")
+            content += r"$"+convert2Latex(cacbonlist,"ankan")+r"+Cl_{2}\xrightarrow[\text{}]{\text{ánh sáng}}"+temp[:-1]+r"-Cl}+HCl$"+"\n"
+            content += r"b) Phản ứng phân hủy \\"+"\n"
+            # with open(os.getcwd()+"/logfile.log","w") as F:
+            #     F.write(content)
+            return content

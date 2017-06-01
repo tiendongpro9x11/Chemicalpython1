@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from convertLatex import convert2Latex
 class ankan:
     def __init__(self):
         self.main = []
@@ -15,6 +16,7 @@ class ankan:
             content += r"\tab $2CH_{4} + O_{2} \xrightarrow[\text{100atm}]{\text{$200^{o}C$}} CH_{3}-OH$\\"+"\n"
             content += r"\tab $CH_{4} + O_{2} \xrightarrow[\text{$V_{2}O_{5}$}]{\text{$300^{o}C$}} \chemfig{H-C([1]=O)([-1]-H)} + H_{2}O$\\"+"\n"
             return content
+        
         else:
             #cac chat con lai co tinh chat chung
-            return -1
+            return convert2Latex(cacbonlist,"ankan")

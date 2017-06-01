@@ -1,5 +1,5 @@
 import os
-
+from convertLatex import convert2Latex
 class DisplayHidro:
     def __init__(self):
         self.mainlist = []
@@ -50,7 +50,7 @@ class DisplayHidro:
                 C[7] = 4
                 l.append(C)
                 self.mainlist.append(l[:])
-                return self.convert2Latex(l,styleof)
+                return convert2Latex(l,styleof)
             elif n==2: #etan
                 C = self.initC()
                 C[0] = "Hidro"
@@ -68,7 +68,7 @@ class DisplayHidro:
                 C[6] = True
                 l.append(C[:])
                 self.mainlist.append(l[:])
-                return self.convert2Latex(l,styleof)
+                return convert2Latex(l,styleof)
 
             l = self.initStyle2() #create C-C-C
             self.addCacbon(l,n)
@@ -92,7 +92,7 @@ class DisplayHidro:
             flag = False
             i = 0
             for x in self.mainlist:
-                s += self.convert2Latex(x,styleof) 
+                s += convert2Latex(x,styleof) 
                 if flag:
                     s += "("+str(i)+")\\\\\n"
                     flag = True
@@ -142,7 +142,7 @@ class DisplayHidro:
                     c[9] = "right"
                     l.append(c[:])
                 self.mainlistanken.append(l[:])
-                return self.convert2Latex(l,styleof)
+                return convert2Latex(l,styleof)
             #like ankan
             l =self.initStyle2()
             self.addCacbon(l,n)
@@ -180,7 +180,7 @@ class DisplayHidro:
             flag = False
             i = 0
             for x in tempmainlist:
-                s += self.convert2Latex(x,styleof) 
+                s += convert2Latex(x,styleof) 
                 if flag:
                     s +="("+str(i)+")\\\\\n"
                     flag = True
@@ -192,70 +192,7 @@ class DisplayHidro:
             return s
 
     #return Cacbon Hidro
-    def retCacbHi(self,variable):
-        if variable[7] == 0:
-            return "C"
-        elif variable[7] == 1:
-            return "CH"
-        return "CH_{"+str(variable[7])+"}"
-    def convert2Latex(self,variable,styleof):
-        result = ""
-        if styleof=="ankan":
-            if len(variable) == 1:
-                result = "CH_{4}"
-            elif len(variable) < 3:
-                for x in variable:
-                    result += "CH_{" + str(x[7]) +"}"
-                    if not x[6]:
-                        result += '-'
-            #truong hop co nhieu dong phan
-            else:
-                for q in variable:
-                    if q[4]:
-                        s = self.retCacbHi(q)
-                        if isinstance(q[2],int):
-                            #neu la top
-                            s+="([:90]-"+self.retCacbHi(variable[q[2]])+")"
-                        if isinstance(q[3],int):
-                            #ney la bottom
-                            s+="([:-90]-"+self.retCacbHi(variable[q[3]])
-                            if isinstance(variable[q[3]][3],int):
-                                s+="-"+self.retCacbHi(variable[variable[q[3]][3]])
-                            s+=")"
-                        result += s
-                        if not q[6]:
-                            #gan dau noi
-                            result += '-'
-        elif styleof=="anken" or styleof=="ankin" or styleof=="ankadien":
-            if len(variable)==2:
-                if styleof=="anken":
-                    result = "CH_{2}=CH_{2}"
-                else:
-                    result = "CH~CH"
-            else:
-                for q in variable:
-                    if q[4]:
-                        s = self.retCacbHi(q)
-                        if isinstance(q[2],int):
-                            #neu la top
-                            s+="([:90]-"+self.retCacbHi(variable[q[2]])+")"
-                        if isinstance(q[3],int):
-                            #ney la bottom
-                            s+="([:-90]-"+self.retCacbHi(variable[q[3]])
-                            if isinstance(variable[q[3]][3],int):
-                                s+="-"+self.retCacbHi(variable[variable[q[3]][3]])
-                            s+=")"
-                        result += s
-                        if not q[6]:
-                            #gan dau noi
-                            if (variable[q[1]][9]=="left" or variable[q[1]][9]=="leftright") and (q[9]=="right" or q[9]=="leftright"):
-                                result += '~'
-                            elif (variable[q[1]][8]=="left" or variable[q[1]][8]=="leftright") and (q[8]=="right" or q[8]=="leftright"):
-                                result += '='
-                            else:
-                                result += '-'
-
-        return '\chemfig{' + result +'}'
+    
 
     #create main_list and add cacbon to main
     def addCacbon(self,listcacbon,n):
@@ -733,3 +670,4 @@ class DisplayAren:
                 result = "*6(-(-"+self.retCacbHi(x[1])+")=-=(-" +self.retCacbHi(self.l[0]) + ")-=)"
 
         return '\chemfig{' + result +'}'
+

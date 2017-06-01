@@ -83,7 +83,7 @@ class Ui_Form(object):
 		self.kindien = False
 	def disProperties(self):
 		##--display proerties
-		ind = re.findall("[-+]?\d+[\.]?\d*[eE]?[-+]?\d*",self.comboBox.currentTexrt())
+		ind = re.findall("[-+]?\d+[\.]?\d*[eE]?[-+]?\d*",self.comboBox.currentText())
 		ind = int(ind[0])
 		flag = False
 		content = "\documentclass[a4paper]{article}\n\setlength{\parindent}{0pt}\n\\newcommand\\tab[1][1cm]{\hspace*{#1}}\n\usepackage{mathtools}\n\usepackage[utf8]{vietnam}\n\usepackage{chemfig}\n\usepackage[margin=2pt]{geometry}\n\\begin{document}\n"

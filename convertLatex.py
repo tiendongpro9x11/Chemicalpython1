@@ -7,12 +7,21 @@ def retCacbHi(variable):
 #display 1 mach Hidrocacbon
 def convert2Latex(variable,styleof):
     result = ""
-    if styleof=="ankan":
+    if styleof=="ankan": ##su dung cho ca mach no co Cl
         if len(variable) == 1:
             result = "CH_{4}"
         elif len(variable) < 3:
             for x in variable:
                 result += "CH_{" + str(x[7]) +"}"
+                # s = ""
+                if x[2] == "Clor":
+                    result+="([:90]-Cl)"
+                elif x[2] == "OH":
+                    result+="([:90]-OH)"
+                if x[3] == "Clor":
+                    result+="([:-90]-Cl)"
+                elif x[3] == "OH":
+                    result+="([:-90]-OH)"
                 if not x[6]:
                     result += '-'
         #truong hop co nhieu dong phan
@@ -23,12 +32,20 @@ def convert2Latex(variable,styleof):
                     if isinstance(q[2],int):
                         #neu la top
                         s+="([:90]-"+retCacbHi(variable[q[2]])+")"
+                    elif q[2] == "Clor":
+                        s+="([:90]-Cl)"
+                    elif q[2] == "OH":
+                        s+="([:90]-OH)"
                     if isinstance(q[3],int):
                         #ney la bottom
                         s+="([:-90]-"+retCacbHi(variable[q[3]])
-                        if isinstance(variable[q[3]][3],int):
+                        if isinstance(variable[q[3]][3],int): #truong hop dac biet voi bot co -CH2-CH3
                             s+="-"+retCacbHi(variable[variable[q[3]][3]])
                         s+=")"
+                    elif q[3] == "Clor":
+                        s+="([:-90]-Cl)"
+                    elif q[3] == "OH":
+                        s+="([:-90]-OH)"
                     result += s
                     if not q[6]:
                         #gan dau noi

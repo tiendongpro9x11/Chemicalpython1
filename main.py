@@ -11,7 +11,7 @@ import re
 import os
 import popplerqt4
 from displayHidrocacbon import *
-from chemical import ankan
+import chemical
 try:
 	_fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
@@ -67,7 +67,7 @@ class Ui_Form(object):
 		Form.setWindowTitle(_translate("Form", "Form", None))
 		self.pushButton.setText(_translate("Form", "Display Hidrocacbon", None))
 		self.pushButton_2.setText(_translate("Form", "Display properties", None))
-		self.lineEdit.setText(_translate("Form", "C3H4", None))
+		self.lineEdit.setText(_translate("Form", "C4H8", None))
 	
 	def submit_f1(self):
 		if not self.lineEdit.text().isEmpty():
@@ -88,9 +88,14 @@ class Ui_Form(object):
 		flag = False
 		content = "\documentclass[a4paper]{article}\n\setlength{\parindent}{0pt}\n\\newcommand\\tab[1][1cm]{\hspace*{#1}}\n\usepackage{mathtools}\n\usepackage[utf8]{vietnam}\n\usepackage{chemfig}\n\usepackage[margin=2pt]{geometry}\n\\begin{document}\n"
 		if self.styleof=="ankan":
-			b = ankan()
-			with open(os.getcwd()+"/logfile.log","w") as F:
-				content+= b.display(self.Elemlist[ind])
+			b = chemical.ankan()
+			# with open(os.getcwd()+"/logfile.log","w") as F:
+			content+= b.display(self.Elemlist[ind])
+			flag = True
+		if self.styleof=="anken":
+			b = chemical.anken()
+			# with open(os.getcwd()+"/logfile.log","a") as F:
+			content+=b.display(self.Elemlist[ind])
 			flag = True
 		if flag:
 			content = content + '\n\end{document}'
@@ -134,6 +139,8 @@ class Ui_Form(object):
 				self.comboBox.addItem("Select: "+str(x))
 			self.comboBox.setVisible(True)
 			self.pushButton_2.setVisible(True)
+			##display properties
+			self.Elemlist = a.getElementList(self.styleof)
 		elif (c*2-2)==h and c >=2 :
 			print "Ankadien or Ankin"
 			if c>=3:
@@ -171,13 +178,16 @@ class Ui_Form(object):
 				# self.comboBox.removeItem
 			content = content +res
 			flag = True
-			
+			##display properties
+			self.Elemlist = a.getElementList(self.styleof)
 		elif (c*2-6) ==h and c>=6:
 			print "Aren"
 			a = DisplayAren()
 			res = a.Aren2tex(c)
 			content = content + res
 			flag = True
+			##display properties
+			self.Elemlist = a.getElementList(self.styleof)
 		else:
 			print "Hidrocacbon not difine"
 		#thuc tuc voi latex va doc pdf

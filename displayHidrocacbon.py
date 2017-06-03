@@ -11,7 +11,7 @@ class DisplayHidro:
         return ["NULL","NULL","NULL","NULL",False,False,False,0,False,False]
     def initStyle2(self): #create C-C-C
         with open(os.getcwd()+"/logfile.log","w") as F:
-            F.write("line 13: Cuoc song ma anh em\n")
+            F.write("line 14: Cuoc song ma anh em\n")
         l = []
         C = self.initC()
         l.append(C)
@@ -159,9 +159,9 @@ class DisplayHidro:
             else:
                 self.removeAkandien()
                 tempmainlist = self.mainlistdien
-            with open(os.getcwd()+"/logfile.log","a") as F:
-                for x in tempmainlist:
-                    F.write("line 160 "+str(x)+"\n")
+            # with open(os.getcwd()+"/logfile.log","a") as F:
+            #     for x in tempmainlist:
+            #         F.write("line 160 "+str(x)+"\n")
 
             for x in tempmainlist:
                 for t in x:
@@ -323,134 +323,134 @@ class DisplayHidro:
                 count_main+=1
         return count_main
     def addLink(self,flag=1): #flag = True #ankin
-        with open(os.getcwd()+"/logfile.log","a") as F:
-            if flag != 3:
-                tempmainlist = self.mainlist
+        # with open(os.getcwd()+"/logfile.log","a") as F:
+        if flag != 3:
+            tempmainlist = self.mainlist
+        else:
+            tempmainlist = self.mainlistanken
+        for x in tempmainlist:
+            # if flag!=3:
+            #     F.write("line 391 "+str(self.checkmirror(x))+"\n")
+            # else:
+            #     F.write("line 393* "+str(x)+"\n")
+            if flag==3:
+                chec =self.checkmirror(x,False)
             else:
-                tempmainlist = self.mainlistanken
-            for x in tempmainlist:
-                if flag!=3:
-                    F.write("line 391 "+str(self.checkmirror(x))+"\n")
-                else:
-                    F.write("line 393* "+str(x)+"\n")
-                if flag==3:
-                    chec =self.checkmirror(x,False)
-                else:
-                    chec = self.checkmirror(x)
-                if chec:
-                    #doi xung chi can them 1 ben
-                    c = 0
-                    leng = self.countMain(x)
-                    while c < leng/2:
-                        if (x[c][2] == "NULL" and x[x[c][1]][2] == "NULL") or (flag==3 and (not x[c][8] or not x[x[c][1]][8]) and (x[c][2]=="NULL" or x[c][3]=="NULL") and (x[x[c][1]][2] == "NULL" or x[x[c][1]][3]=="NULL")):
-                            temp = []
-                            for t in x:
-                                temp.append(t[:])
-                            if flag != 3:
-                                temp[c][2] = "None"
-                                if not temp[c][8]:
-                                    temp[c][8] = "right"
-                                else:
-                                    temp[c][8] = "leftright"
+                chec = self.checkmirror(x)
+            if chec:
+                #doi xung chi can them 1 ben
+                c = 0
+                leng = self.countMain(x)
+                while c < leng/2:
+                    if (x[c][2] == "NULL" and x[x[c][1]][2] == "NULL") or (flag==3 and (not x[c][8] or not x[x[c][1]][8]) and (x[c][2]=="NULL" or x[c][3]=="NULL") and (x[x[c][1]][2] == "NULL" or x[x[c][1]][3]=="NULL")):
+                        temp = []
+                        for t in x:
+                            temp.append(t[:])
+                        if flag != 3:
+                            temp[c][2] = "None"
+                            if not temp[c][8]:
+                                temp[c][8] = "right"
+                            else:
+                                temp[c][8] = "leftright"
 
+                            temp[temp[c][1]][2] = "None"
+                            if not temp[temp[c][1]][8]:
+                                temp[temp[c][1]][8] = "left"
+                            else:
+                                temp[temp[c][1]][8] = "leftright"
+                        else:
+                            if x[c][2] == "NULL":
+                                temp[c][2] = "None"
+                                temp[c][8] = "right"
+                            else:
+                                temp[c][3] = "None"
+                                temp[c][8] = "right"
+                            if x[x[c][1]][2] == "NULL":
                                 temp[temp[c][1]][2] = "None"
+                                if not temp[temp[c][1]][8]:
+                                    temp[temp[c][1]][8] = "right"
+                                else:
+                                    temp[temp[c][1]][8] = "leftright"
+                            else:
+                                temp[temp[c][1]][3] = "None"
                                 if not temp[temp[c][1]][8]:
                                     temp[temp[c][1]][8] = "left"
                                 else:
                                     temp[temp[c][1]][8] = "leftright"
+                        if flag==1:
+                            self.mainlistanken.append(temp[:])
+                        elif flag==3:
+                            self.mainlistdien.append(temp[:])
+                        elif flag == 2 and x[c][3] == "NULL" and x[x[c][1]][3] == "NULL":
+                            #khong co truong hop leftright voi lien ket garmar
+                            temp[c][3] = "None"
+                            temp[c][9] = "right"
+
+                            temp[temp[c][1]][3] = "None"
+                            temp[temp[c][1]][9] = "left"
+                            self.mainlistanken.append(temp[:])
+
+                    c = x[c][1]
+            else:
+                #them tat ca
+                for k in range(len(x)): #moi k la mot cacbon
+                    #manh chinh and not right
+                    if x[k][4] and not x[k][6] and ((x[k][2] == "NULL" and x[x[k][1]][2] == "NULL") or (flag==3 and (not x[k][8] or not x[x[k][1]][8]) and (x[k][2] == "NULL" or x[k][3] == "NULL") and (x[x[k][1]][2] == "NULL" or x[x[k][1]][3] == "NULL"))) : 
+                    #dieu kien them neu no va con tro ben phai
+                        #create new list
+                        temp = []
+                        for t in x:
+                            temp.append(t[:]) 
+                        #tuong duong temp = x. khong vi pham vung nho
+                        if flag != 3:
+                            temp[k][2] = "None" #top None
+                            if not temp[k][8]:
+                                temp[k][8] = "right"
                             else:
-                                if x[c][2] == "NULL":
-                                    temp[c][2] = "None"
-                                    temp[c][8] = "right"
-                                else:
-                                    temp[c][3] = "None"
-                                    temp[c][8] = "right"
-                                if x[x[c][1]][2] == "NULL":
-                                    temp[temp[c][1]][2] = "None"
-                                    if not temp[temp[c][1]][8]:
-                                        temp[temp[c][1]][8] = "right"
-                                    else:
-                                        temp[temp[c][1]][8] = "leftright"
-                                else:
-                                    temp[temp[c][1]][3] = "None"
-                                    if not temp[temp[c][1]][8]:
-                                        temp[temp[c][1]][8] = "left"
-                                    else:
-                                        temp[temp[c][1]][8] = "leftright"
-                            if flag==1:
-                                self.mainlistanken.append(temp[:])
-                            elif flag==3:
-                                self.mainlistdien.append(temp[:])
-                            elif flag == 2 and x[c][3] == "NULL" and x[x[c][1]][3] == "NULL":
-                                #khong co truong hop leftright voi lien ket garmar
-                                temp[c][3] = "None"
-                                temp[c][9] = "right"
+                                temp[k][8] = "leftright"
 
-                                temp[temp[c][1]][3] = "None"
-                                temp[temp[c][1]][9] = "left"
-                                self.mainlistanken.append(temp[:])
-
-                        c = x[c][1]
-                else:
-                    #them tat ca
-                    for k in range(len(x)): #moi k la mot cacbon
-                        #manh chinh and not right
-                        if x[k][4] and not x[k][6] and ((x[k][2] == "NULL" and x[x[k][1]][2] == "NULL") or (flag==3 and (not x[k][8] or not x[x[k][1]][8]) and (x[k][2] == "NULL" or x[k][3] == "NULL") and (x[x[k][1]][2] == "NULL" or x[x[k][1]][3] == "NULL"))) : 
-                        #dieu kien them neu no va con tro ben phai
-                            #create new list
-                            temp = []
-                            for t in x:
-                                temp.append(t[:]) 
-                            #tuong duong temp = x. khong vi pham vung nho
-                            if flag != 3:
+                            temp[temp[k][1]][2] = "None"
+                            if not temp[temp[k][1]][8]:
+                                temp[temp[k][1]][8] = "left"
+                            else:
+                                temp[temp[k][1]][8] = "leftright"
+                        else:
+                            if x[k][2] == "NULL":
                                 temp[k][2] = "None" #top None
                                 if not temp[k][8]:
                                     temp[k][8] = "right"
                                 else:
                                     temp[k][8] = "leftright"
-
+                            else:
+                                temp[k][3] = "None" #top None
+                                if not temp[k][8]:
+                                    temp[k][8] = "right"
+                                else:
+                                    temp[k][8] = "leftright"
+                            if x[x[k][1]][2] == "NULL":
                                 temp[temp[k][1]][2] = "None"
                                 if not temp[temp[k][1]][8]:
                                     temp[temp[k][1]][8] = "left"
                                 else:
                                     temp[temp[k][1]][8] = "leftright"
                             else:
-                                if x[k][2] == "NULL":
-                                    temp[k][2] = "None" #top None
-                                    if not temp[k][8]:
-                                        temp[k][8] = "right"
-                                    else:
-                                        temp[k][8] = "leftright"
-                                else:
-                                    temp[k][3] = "None" #top None
-                                    if not temp[k][8]:
-                                        temp[k][8] = "right"
-                                    else:
-                                        temp[k][8] = "leftright"
-                                if x[x[k][1]][2] == "NULL":
-                                    temp[temp[k][1]][2] = "None"
-                                    if not temp[temp[k][1]][8]:
-                                        temp[temp[k][1]][8] = "left"
-                                    else:
-                                        temp[temp[k][1]][8] = "leftright"
-                                else:
-                                    temp[temp[k][1]][3] = "None"
-                                    if not temp[temp[k][1]][8]:
-                                        temp[temp[k][1]][8] = "left"
-                                    else:
-                                        temp[temp[k][1]][8] = "leftright"
-
-                            if flag==1:
-                                self.mainlistanken.append(temp[:])
-                            elif flag==3:
-                                self.mainlistdien.append(temp[:])
-                            elif flag==2 and x[k][3] == "NULL" and x[x[k][1]][3] == "NULL":
-                                #khong co truong hop leftright voi lien ket gamar
-                                temp[k][3] = "None"
-                                temp[k][9] = "right"
                                 temp[temp[k][1]][3] = "None"
-                                temp[temp[k][1]][9] = "left"
-                                self.mainlistanken.append(temp[:])
+                                if not temp[temp[k][1]][8]:
+                                    temp[temp[k][1]][8] = "left"
+                                else:
+                                    temp[temp[k][1]][8] = "leftright"
+
+                        if flag==1:
+                            self.mainlistanken.append(temp[:])
+                        elif flag==3:
+                            self.mainlistdien.append(temp[:])
+                        elif flag==2 and x[k][3] == "NULL" and x[x[k][1]][3] == "NULL":
+                            #khong co truong hop leftright voi lien ket gamar
+                            temp[k][3] = "None"
+                            temp[k][9] = "right"
+                            temp[temp[k][1]][3] = "None"
+                            temp[temp[k][1]][9] = "left"
+                            self.mainlistanken.append(temp[:])
     def cacbonLevel(self,cacb):
         count = 0
         if isinstance(cacb[0],int):

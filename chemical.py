@@ -21,6 +21,8 @@ class ankan:
         
         else:
             tempList = []
+            n = len(cacbonlist)
+
             for x in cacbonlist:
                 tempList.append(x[:])
             for x in tempList:
@@ -29,8 +31,27 @@ class ankan:
                     x[7]-=1
             content = r"a) Phản ứng thế với $Cl_{2}, Br_{2}$\\"+"\n"
             temp = convert2Latex(tempList,"ankan")
-            content += r"$"+convert2Latex(cacbonlist,"ankan")+r"+Cl_{2}\xrightarrow[\text{}]{\text{ánh sáng}}"+temp[:-1]+r"-Cl}+HCl$"+"\n"
+            content += r"$"+convert2Latex(cacbonlist,"ankan")+r"+Cl_{2}\xrightarrow[\text{}]{\text{ánh sáng}}"+temp[:-1]+r"-Cl}+HCl$\\"+"\n"
             content += r"b) Phản ứng phân hủy \\"+"\n"
+            content += r"\tab $C_{"+str(n)+r"}H_{"+str(2*n+2)+r"} \xrightarrow[\text{}]{\text{$t^{o} cao$}} "+str(n)+r"C + "+str(n+1)+r"H_{2}$\\"+"\n"
+            content += r"c) Phản ứng dehidro \\"+"\n"
+            # content += r"\\"+"\n"
+            content += r"\tab $C_{"+str(n)+r"}H_{"+str(2*n+2)+r"} \xrightarrow[\text{}]{\text{$450^{o} C$}} C_{"+str(n)+r"}H_{"+str(2*n)+r"} + H_{2}$\\"+"\n"
+            content += r"d) Phản ứng cháy \\"+"\n"
+            if (3*n+1)%2==0:
+                a = str((3*n+1)/2)
+            else:
+                a = r"\frac{"+str(3*n+1)+r"}{2}"
+            content += r"\tab $C_{"+str(n)+r"}H_{"+str(2*n+2)+r"}+"+a+r"O_{2} \xrightarrow[\text{}]{\text{$t^{o}$}}" +str(n)+r"CO_{2} +"+ str(n+1)+r"H_{2}O$\\"+"\n"
+            content += r"f) Oxi hóa tạo ra Axit\\"+"\n"
+            content += r"\chemfig{R-CH_{2}-CH_{2}-R'} $\xrightarrow[\text{muối $Mn^{2+}$}]{\text{$O_{2}$ kk}}$  \chemfig{R-C([1]=O)([-1]-OH)}+ \chemfig{R'-C([1]=O)([-1]-OH)}\\"+"\n"
+            if n>=3:
+                content += r"e) Phản ứng cracking (skip)\\"+"\n"
             # with open(os.getcwd()+"/logfile.log","w") as F:
             #     F.write(content)
             return content
+class anken:
+    def __init__(self):
+        self.main = []
+    def display(self,cacbonlist):
+        print "1"
